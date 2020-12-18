@@ -34,3 +34,13 @@ with:
 ```
 
 **Note** The workflow must include `pull_request` trigger.
+
+## Project setup & tests
+
+```bash
+npm install
+```
+
+```bash
+npm test
+```
