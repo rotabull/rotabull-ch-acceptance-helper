@@ -1,13 +1,8 @@
 const { Octokit } = require("@octokit/core");
 const Github = require("../../lib/github");
+const { mockPr } = require("./mocks.js");
 
 jest.mock('@octokit/core');
-
-const mockPr = {
-  sha: "123",
-  number: "1",
-  statuses_url: "/pulls/123"
-};
 
 describe("getPrSha", () => {
   it("correctly extract the SHA", () => {

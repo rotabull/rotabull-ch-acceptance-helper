@@ -1,11 +1,8 @@
 const ClubhouseLib = require("clubhouse-lib");
 const Clubhouse = require("../../lib/clubhouse");
+const { mockStory } = require("./mocks");
 
 jest.mock('clubhouse-lib');
-
-const mockStory = {
-  labels: []
-};
 
 describe("extractStoryIdFromPrTitle", () => {
   it("return null if title is empty", () => {
