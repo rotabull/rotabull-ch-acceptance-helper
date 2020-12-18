@@ -1,0 +1,15 @@
+name: "Clubhouse Acceptance"
+description: "It checks Clubhouse acceptance for individual Rotabull Pull-Request"
+inputs:
+  github-token:
+    description: "github token"
+    required: true
+  clubhouse-token:
+    description: "clubhouse API token"
+    required: true
+outputs:
+  message:
+    description: "Extra Messages"
+runs:
+  using: "node12"
+  main: "index.js"

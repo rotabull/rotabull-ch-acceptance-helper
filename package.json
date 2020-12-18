@@ -1,0 +1,28 @@
+{
+  "name": "rotabull-ch-acceptance-helper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@octokit/core": "^3.2.4",
+    "clubhouse-lib": "^0.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rotabull/rotabull-ch-acceptance-helper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rotabull/rotabull-ch-acceptance-helper/issues"
+  },
+  "homepage": "https://github.com/rotabull/rotabull-ch-acceptance-helper#readme"
+}
