@@ -4,8 +4,18 @@ const Github = require("../../lib/github");
 jest.mock('@octokit/core');
 
 const mockPr = {
-  number: "1"
+  sha: "123",
+  number: "1",
+  statuses_url: "/pulls/123"
 };
+
+describe("getPrSha", () => {
+  it("correctly extract the SHA", () => {
+    const github = new Github("token");
+
+    expect(github.getPrSha(mockPr)).toEqual("123");
+  });
+});
 
 describe("getPr", () => {
   beforeEach(() => {
