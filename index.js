@@ -1,3 +1,4 @@
+const fs = require("fs");
 const core = require("@actions/core");
 const checkers = require("./lib/checkers");
 
