@@ -49,13 +49,13 @@ describe("clubhouseAcceptance", () => {
 
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Can't find Clubhouse story ID in PR title", state: "failure", sha: "123" });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Can't find Clubhouse story ID in PR title", state: "failure", sha: "123", context: "Clubhouse Acceptance", targetUrl: "https://app.clubhouse.io/rotabull/stories" });
   });
 
   it("add failure pr status if CH story does not includes the Accepted label", async () => {
     const getPr = jest.fn(() => {
       return {
-        data: {...mockPr, ...{title: "title [ch123]"}}
+        data: { ...mockPr, ...{ title: "title [ch123]" } }
       }
     });
 
@@ -84,13 +84,13 @@ describe("clubhouseAcceptance", () => {
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
     expect(getStory).toHaveBeenCalledWith("123");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Not accepted yet", state: "failure", sha: "123" });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Not accepted yet", state: "failure", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
   });
 
   it("add success pr status if CH story includes the Accepted label", async () => {
     const getPr = jest.fn(() => {
       return {
-        data: {...mockPr, ...{title: "title [ch123]"}}
+        data: { ...mockPr, ...{ title: "title [ch123]" } }
       }
     });
 
@@ -119,6 +119,6 @@ describe("clubhouseAcceptance", () => {
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
     expect(getStory).toHaveBeenCalledWith("123");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Good, accepted", state: "success", sha: "123" });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Accepted", state: "success", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
   });
 });
