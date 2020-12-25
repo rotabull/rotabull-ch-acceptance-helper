@@ -11,9 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Clubhouse Acceptance
     steps:
+
+      # Not needed when installing in a new repo
       - name: Checkout
         uses: actions/checkout@v2
       - name: Clubhouse Acceptance Check
+        # Change this to rotabull/rotabull-ch-acceptance-helper@main
         uses: ./
         with:
           github-token: ${{ github.token }}
