@@ -4,6 +4,38 @@ This action verify if a given Rotabull Pull-Request is associated with a
 Clubhouse story so it checks if the story includes "Accepted" label and
 flag the result to the Pull-Request.
 
+## Example usage
+
+```yaml
+on:
+  repository_dispatch:
+    types: ["clubhouse-acceptance"]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+uses: rotabull/rotabull-ch-acceptance-helper@main
+with:
+  github-token: '123'
+  clubhouse-token: '123'
+  ......
+```
+
+## Events
+
+This action can be run on `pull_request` or `repository dispatch`.
+
+In the case of a repository dispatch, a client payload must be provided: 
+
+```
+{
+"event_type": "clubhouse-acceptance",
+"client_payload": {
+        "story_id": 1234,
+        "accepted": true
+    }
+}
+```
+
 ## Inputs
 
 ### `github-token`
@@ -15,27 +47,12 @@ in order to call Github API.
 
 **Required** Clubhouse API, token added by Github workflow as an env var. It's used in order to call Clubhouse API.
 
-## Outputs
+## Output
 
-### `message`
+The output of this action is a POST to create a commit status check:
+`/repos/{owner}/{repo}/statuses/{sha}`. See the [docs on Github](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#create-a-commit-status) for more
 
-Internal outputs.
-
-## Example usage
-
-```yaml
-# on: [pull_request]
-
-uses: rotabull/rotabull-ch-acceptance-helper@main
-with:
-  github-token: '123'
-  clubhouse-token: '123'
-  ......
-```
-
-**Note** The workflow must include `pull_request` trigger.
-
-## Project setup & tests
+## Development
 
 ```bash
 npm install
