@@ -7,9 +7,6 @@ inputs:
   clubhouse-token:
     description: "clubhouse API token"
     required: true
-outputs:
-  message:
-    description: "Extra Messages"
 runs:
   using: "node12"
   main: "dist/index.js"

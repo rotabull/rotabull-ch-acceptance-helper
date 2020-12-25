@@ -1,8 +1,10 @@
 # Rotabull Clubhouse Acceptance Helper action
 
-This action verify if a given Rotabull Pull-Request is associated with a
-Clubhouse story so it checks if the story includes "Accepted" label and
-flag the result to the Pull-Request.
+This action verifies that the Clubhouse story associated with a PR has been accepted.
+It looks for the "Accepted" label and sends a passing or failing Status Check by sending
+a POST: `/repos/{owner}/{repo}/statuses/{sha}`.
+
+See the [docs on Github](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#create-a-commit-status) for more
 
 ## Example usage
 
@@ -47,10 +49,6 @@ in order to call Github API.
 
 **Required** Clubhouse API, token added by Github workflow as an env var. It's used in order to call Clubhouse API.
 
-## Output
-
-The output of this action is a POST to create a commit status check:
-`/repos/{owner}/{repo}/statuses/{sha}`. See the [docs on Github](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#create-a-commit-status) for more
 
 ## Development
 
