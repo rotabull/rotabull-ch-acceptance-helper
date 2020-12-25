@@ -77,6 +77,7 @@ module.exports = JSON.parse("[[[0,44],\"disallowed_STD3_valid\"],[[45,46],\"vali
 /***/ 5456:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+<<<<<<< HEAD
 const core = __webpack_require__(5127);
 const checkers = __webpack_require__(5397);
 const github = __webpack_require__(3134);
@@ -89,6 +90,27 @@ const CLUBHOUSE_TOKEN = core.getInput("clubhouse-token");
 async function run() {
   try {
     await checkers.clubhouseAcceptance(github.context.payload.number, GITHUB_TOKEN, CLUBHOUSE_TOKEN);
+=======
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3134);
+/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_0__);
+const fs = __webpack_require__(5747);
+const core = __webpack_require__(5127);
+const checkers = __webpack_require__(5397);
+
+
+console.log(_actions_github__WEBPACK_IMPORTED_MODULE_0__.context.eventName)
+
+const GITHUB_TOKEN = core.getInput("github-token");
+const CLUBHOUSE_TOKEN = core.getInput("clubhouse-token");
+
+const event = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
+
+async function run() {
+  try {
+    await checkers.clubhouseAcceptance(event.number, GITHUB_TOKEN, CLUBHOUSE_TOKEN);
+>>>>>>> test
 
     // If event is a repo dispatch
     // 1. find github PR associated w/story
