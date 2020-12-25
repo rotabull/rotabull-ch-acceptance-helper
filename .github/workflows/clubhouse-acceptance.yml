@@ -1,0 +1,18 @@
+name: "Clubhouse Acceptance"
+on:
+  repository_dispatch:
+    types: ["clubhouse-acceptance"]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+
+jobs:
+  clubhouse_acceptance:
+    runs-on: ubuntu-latest
+    name: Clubhouse Acceptance
+    steps:
+      - name: Clubhouse Acceptance Check
+        uses: ./
+        with:
+          github-token: ${{ github.token }}
+          clubhouse-token: ${{ secrets.CLUBHOUSE_TOKEN }}
