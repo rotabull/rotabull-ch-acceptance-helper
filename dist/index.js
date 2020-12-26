@@ -77,45 +77,25 @@ module.exports = JSON.parse("[[[0,44],\"disallowed_STD3_valid\"],[[45,46],\"vali
 /***/ 5456:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-<<<<<<< HEAD
 const core = __webpack_require__(5127);
 const checkers = __webpack_require__(5397);
 const github = __webpack_require__(3134);
 
-console.log(context.eventName)
-
 const GITHUB_TOKEN = core.getInput("github-token");
 const CLUBHOUSE_TOKEN = core.getInput("clubhouse-token");
 
 async function run() {
   try {
-    await checkers.clubhouseAcceptance(github.context.payload.number, GITHUB_TOKEN, CLUBHOUSE_TOKEN);
-=======
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3134);
-/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_0__);
-const fs = __webpack_require__(5747);
-const core = __webpack_require__(5127);
-const checkers = __webpack_require__(5397);
-
-
-console.log(_actions_github__WEBPACK_IMPORTED_MODULE_0__.context.eventName)
-
-const GITHUB_TOKEN = core.getInput("github-token");
-const CLUBHOUSE_TOKEN = core.getInput("clubhouse-token");
-
-const event = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
-
-async function run() {
-  try {
-    await checkers.clubhouseAcceptance(event.number, GITHUB_TOKEN, CLUBHOUSE_TOKEN);
->>>>>>> test
-
-    // If event is a repo dispatch
-    // 1. find github PR associated w/story
-    // 2. get SHA for latest commit on PR/branch
-    // 3. send post using Clubhouse info on dispatch to github SHA
+    switch (github.context.eventName) {
+      case 'pull_request':
+        await checkers.clubhouseAcceptance(github.context.payload.number, GITHUB_TOKEN, CLUBHOUSE_TOKEN);
+      case 'repository_dispatch':
+      // search for PR based on [chXYZ] in title
+      // get SHA of latest
+      // send post using Clubhouse info on dispatch to github SHA
+      default:
+        console.error("Unsupported Event Type; only `pull_request` and `repository_dispatch` allowed");
+    }
   } catch (error) {
     console.log(error.stack);
     core.setFailed(error.message);
@@ -132,6 +112,7 @@ run();
 
 const Github = __webpack_require__(2751);
 const Clubhouse = __webpack_require__(7079);
+const githubStd = __webpack_require__(3134);
 
 const CONTEXT = "Clubhouse Acceptance"
 const DEFAULT_URL = "https://app.clubhouse.io/rotabull/stories"
@@ -162,6 +143,29 @@ module.exports = {
 
     return null;
   },
+  async repositoryDispatch(clubhouseId, githubToken) {
+    const octokit = githubStd.getOctokit(githubToken);
+    // const clubhouseId = context.payload.clientPayload["story_id"];
+
+    console.log(encodeURIComponent(`fix in:title is:pr repo:rotabull/rotabull state:open`));
+
+    const foundPrs = await octokit.search.issuesAndPullRequests(
+      // { q: encodeURIComponent(`is:pr repo:rotabull/rotabull`) }
+      { q: `[${clubhouseId}] is:pr+is:open+repo:rotabull/rotabull+draft:false` }
+    )
+
+    switch (foundPrs.data.items.length) {
+      case 0:
+        throw `No PRs found for Clubhouse ID: ${clubhouseId}`
+      case 1:
+      default:
+        throw `Multiple PRs found for Clubhouse ID: ${clubhouseId}`
+    }
+
+    console.log(foundPrs);
+
+    return foundPrs;
+  }
 };
 
 
