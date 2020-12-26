@@ -10,8 +10,9 @@ See the [docs on Github](https://docs.github.com/en/free-pro-team@latest/rest/re
 
 ```yaml
 on:
-  repository_dispatch:
-    types: ["clubhouse-acceptance"]
+  # Future functionality
+  # repository_dispatch:
+  #   types: ["clubhouse-acceptance"]
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -24,9 +25,9 @@ with:
 
 ## Events
 
-This action can be run on `pull_request` or `repository dispatch`.
+This action can be run on `pull_request`.
 
-In the case of a repository dispatch, a client payload must be provided: 
+In the future, it may also be run on a `repository dispatch`. In the case of a repository dispatch, a client payload must be provided:
 
 ```
 {
