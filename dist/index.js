@@ -125,9 +125,9 @@ module.exports = {
 
     const story = await clubhouse.getStory(storyID);
 
-    if (clubhouse.storyHasAcceptedLabel(story)) {
+    if (clubhouse.storyHasLabel(story, "Accepted")) {
       await github.addPrStatus({ description: "Accepted", state: "success", sha, context: CONTEXT, targetUrl: story.app_url });
-    } else if (clubhouse.storyHasRejectedLabel(story)) {
+    } else if (clubhouse.storyHasLabel(story, "Not Accepted")) {
       await github.addPrStatus({ description: "Not Accepted", state: "failure", sha, context: CONTEXT, targetUrl: story.app_url });
     } else {
       await github.addPrStatus({ description: "Still waiting for acceptance", state: "pending", sha, context: CONTEXT, targetUrl: story.app_url });
@@ -144,12 +144,6 @@ module.exports = {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const ClubhouseLib = __webpack_require__(5317);
-
-const CH = {
-  LABELS: {
-    ACCEPTED: "Accepted",
-  },
-};
 
 module.exports = class Clubhouse {
   constructor(token) {
@@ -169,8 +163,8 @@ module.exports = class Clubhouse {
     return story;
   };
 
-  storyHasAcceptedLabel(story) {
-    return story.labels.find((label) => label.name === CH.LABELS.ACCEPTED) !== undefined;
+  storyHasLabel(story, labelText) {
+    return story.labels.find((label) => label.name === labelText) !== undefined;
   }
 }
 

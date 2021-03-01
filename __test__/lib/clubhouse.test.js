@@ -54,14 +54,14 @@ describe("extractStoryIdFromPrTitle", () => {
   });
 });
 
-describe("storyHasAcceptedLabel", () => {
+describe("storyHasLabel", () => {
   it("return true if Accepted label is present", () => {
     const clubhouse = new Clubhouse("token");
 
     expect(
-      clubhouse.storyHasAcceptedLabel({
-        labels: [{name: "Accepted"}]
-      })
+      clubhouse.storyHasLabel({
+        labels: [{ name: "Accepted" }]
+      }, "Accepted")
     ).toBeTruthy();
   });
 
@@ -69,9 +69,9 @@ describe("storyHasAcceptedLabel", () => {
     const clubhouse = new Clubhouse("token");
 
     expect(
-      clubhouse.storyHasAcceptedLabel({
-        labels: [{name: "Accept"}]
-      })
+      clubhouse.storyHasLabel({
+        labels: [{ name: "Accept" }]
+      }, "Accepted")
     ).toBeFalsy();
   });
 });

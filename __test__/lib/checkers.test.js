@@ -49,7 +49,7 @@ describe("clubhouseAcceptance", () => {
 
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Can't find Clubhouse story ID in PR title", state: "failure", sha: "123", context: "Clubhouse Acceptance", targetUrl: "https://app.clubhouse.io/rotabull/stories" });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Can't find Clubhouse story ID in PR title", state: "error", sha: "123", context: "Clubhouse Acceptance", targetUrl: "https://app.clubhouse.io/rotabull/stories" });
   });
 
   it("add failure pr status if CH story does not includes the Accepted label", async () => {
@@ -75,7 +75,7 @@ describe("clubhouseAcceptance", () => {
       return {
         getStory,
         extractStoryIdFromPrTitle: () => "123",
-        storyHasAcceptedLabel: () => false
+        storyHasLabel: () => false
       };
     });
 
@@ -84,7 +84,7 @@ describe("clubhouseAcceptance", () => {
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
     expect(getStory).toHaveBeenCalledWith("123");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Not accepted yet", state: "failure", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Still waiting for acceptance", state: "pending", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
   });
 
   it("add success pr status if CH story includes the Accepted label", async () => {
@@ -110,7 +110,7 @@ describe("clubhouseAcceptance", () => {
       return {
         getStory,
         extractStoryIdFromPrTitle: () => "123",
-        storyHasAcceptedLabel: () => true
+        storyHasLabel: () => true
       };
     });
 
