@@ -75,7 +75,8 @@ describe("clubhouseAcceptance", () => {
       return {
         getStory,
         extractStoryIdFromPrTitle: () => "123",
-        storyHasLabel: () => false
+        storyHasLabel: () => false,
+        storyHasType: () => false
       };
     });
 
@@ -110,7 +111,8 @@ describe("clubhouseAcceptance", () => {
       return {
         getStory,
         extractStoryIdFromPrTitle: () => "123",
-        storyHasLabel: () => true
+        storyHasLabel: () => true,
+        storyHasType: () => false
       };
     });
 
@@ -120,5 +122,41 @@ describe("clubhouseAcceptance", () => {
     expect(getPr).toHaveBeenCalledWith("1");
     expect(getStory).toHaveBeenCalledWith("123");
     expect(addPrStatus).toHaveBeenCalledWith({ description: "Accepted", state: "success", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
+  });
+
+  it("add success pr status if CH story is a chore", async () => {
+    const getPr = jest.fn(() => {
+      return {
+        data: { ...mockPr, ...{ title: "title [ch123]" } }
+      }
+    });
+
+    const addPrStatus = jest.fn();
+
+    Github.mockImplementation(() => {
+      return {
+        getPr,
+        addPrStatus,
+        getPrSha: () => (mockPr.sha)
+      };
+    });
+
+    const getStory = jest.fn(() => mockStory);
+
+    Clubhouse.mockImplementation(() => {
+      return {
+        getStory,
+        extractStoryIdFromPrTitle: () => "123",
+        storyHasType: () => true,
+        storyHasLabel: () => false
+      };
+    });
+
+    expect(await Checkers.clubhouseAcceptance("1")).toBeNull();
+
+    expect(Github).toHaveBeenCalledTimes(1);
+    expect(getPr).toHaveBeenCalledWith("1");
+    expect(getStory).toHaveBeenCalledWith("123");
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Chores do not require Acceptance", state: "success", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
   });
 });

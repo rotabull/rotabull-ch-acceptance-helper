@@ -6,6 +6,7 @@ module.exports = {
     statuses_url: "/pulls/123"
   },
   mockStory: {
-    labels: []
+    labels: [],
+    story_type: ""
   },
 }
