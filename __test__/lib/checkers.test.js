@@ -121,7 +121,7 @@ describe("clubhouseAcceptance", () => {
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
     expect(getStory).toHaveBeenCalledWith("123");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Chores do not require Acceptance", state: "success", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Accepted", state: "success", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
   });
 
   it("add success pr status if CH story is a chore", async () => {
@@ -157,6 +157,6 @@ describe("clubhouseAcceptance", () => {
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
     expect(getStory).toHaveBeenCalledWith("123");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Accepted", state: "success", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Chores do not require Acceptance", state: "success", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
   });
 });
