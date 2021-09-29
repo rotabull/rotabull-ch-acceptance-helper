@@ -8,7 +8,7 @@ const Github = __nccwpck_require__(7938);
 const Clubhouse = __nccwpck_require__(747);
 
 const CONTEXT = "Clubhouse Acceptance"
-const DEFAULT_URL = "https://app.clubhouse.io/rotabull/stories"
+const DEFAULT_URL = "https://api.app.shortcut.com/api/v3/stories";
 
 module.exports = {
   async clubhouseAcceptance(prNumber, githubToken, clubhouseToken) {
@@ -58,7 +58,7 @@ module.exports = class Clubhouse {
   }
 
   extractStoryIdFromPrTitle(title) {
-    const chTag = title.match(/\[ch[0-9]+\]/g);
+    const chTag = title.match(/\[(sc-|ch)[0-9]+\]/g);
     const storyID = chTag ? chTag[0].replace(/\D/g, '') : null;
 
     return storyID;
