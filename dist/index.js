@@ -8,7 +8,7 @@ const Github = __nccwpck_require__(7938);
 const Clubhouse = __nccwpck_require__(747);
 
 const CONTEXT = "Clubhouse Acceptance"
-const DEFAULT_URL = "https://app.clubhouse.io/rotabull/stories"
+const DEFAULT_URL = "https://api.app.shortcut.com/api/v3/stories";
 
 module.exports = {
   async clubhouseAcceptance(prNumber, githubToken, clubhouseToken) {
