@@ -1,15 +1,15 @@
 const Github = require("../../lib/github");
-const Clubhouse = require("../../lib/clubhouse");
+const Shortcut = require("../../lib/shortcut");
 const Checkers = require("../../lib/checkers");
 const { mockPr, mockStory } = require("./mocks.js");
 
 jest.mock('../../lib/github');
-jest.mock('../../lib/clubhouse');
+jest.mock('../../lib/shortcut');
 
-describe("clubhouseAcceptance", () => {
+describe("shortcutAcceptance", () => {
   beforeEach(() => {
     Github.mockClear();
-    Clubhouse.mockClear();
+    Shortcut.mockClear();
   });
 
   it("forward the exception if Github throw", async () => {
@@ -22,7 +22,7 @@ describe("clubhouseAcceptance", () => {
     });
 
     await expect(
-      Checkers.clubhouseAcceptance()
+      Checkers.shortcutAcceptance()
     ).rejects.toThrow("get pr fail");
 
     expect(Github).toHaveBeenCalledTimes(1);
@@ -45,11 +45,11 @@ describe("clubhouseAcceptance", () => {
       };
     });
 
-    expect(await Checkers.clubhouseAcceptance("1")).toBeNull();
+    expect(await Checkers.shortcutAcceptance("1")).toBeNull();
 
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Can't find Clubhouse story ID in PR title", state: "error", sha: "123", context: "Clubhouse Acceptance", targetUrl: "https://app.clubhouse.io/rotabull/stories" });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Can't find Shortcut story ID in PR title", state: "error", sha: "123", context: "Shortcut Acceptance", targetUrl: "https://app.shortcut.io/rotabull/stories" });
   });
 
   it("add failure pr status if CH story does not includes the Accepted label", async () => {
@@ -71,7 +71,7 @@ describe("clubhouseAcceptance", () => {
 
     const getStory = jest.fn(() => mockStory);
 
-    Clubhouse.mockImplementation(() => {
+    Shortcut.mockImplementation(() => {
       return {
         getStory,
         extractStoryIdFromPrTitle: () => "123",
@@ -80,12 +80,12 @@ describe("clubhouseAcceptance", () => {
       };
     });
 
-    expect(await Checkers.clubhouseAcceptance("1")).toBeNull();
+    expect(await Checkers.shortcutAcceptance("1")).toBeNull();
 
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
     expect(getStory).toHaveBeenCalledWith("123");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Still waiting for acceptance", state: "pending", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Still waiting for acceptance", state: "pending", sha: "123", "context": "Shortcut Acceptance", targetUrl: undefined });
   });
 
   it("add success pr status if CH story includes the Accepted label", async () => {
@@ -107,7 +107,7 @@ describe("clubhouseAcceptance", () => {
 
     const getStory = jest.fn(() => mockStory);
 
-    Clubhouse.mockImplementation(() => {
+    Shortcut.mockImplementation(() => {
       return {
         getStory,
         extractStoryIdFromPrTitle: () => "123",
@@ -116,12 +116,12 @@ describe("clubhouseAcceptance", () => {
       };
     });
 
-    expect(await Checkers.clubhouseAcceptance("1")).toBeNull();
+    expect(await Checkers.shortcutAcceptance("1")).toBeNull();
 
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
     expect(getStory).toHaveBeenCalledWith("123");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Accepted", state: "success", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Accepted", state: "success", sha: "123", "context": "Shortcut Acceptance", targetUrl: undefined });
   });
 
   it("add success pr status if CH story is a chore", async () => {
@@ -143,7 +143,7 @@ describe("clubhouseAcceptance", () => {
 
     const getStory = jest.fn(() => mockStory);
 
-    Clubhouse.mockImplementation(() => {
+    Shortcut.mockImplementation(() => {
       return {
         getStory,
         extractStoryIdFromPrTitle: () => "123",
@@ -152,11 +152,11 @@ describe("clubhouseAcceptance", () => {
       };
     });
 
-    expect(await Checkers.clubhouseAcceptance("1")).toBeNull();
+    expect(await Checkers.shortcutAcceptance("1")).toBeNull();
 
     expect(Github).toHaveBeenCalledTimes(1);
     expect(getPr).toHaveBeenCalledWith("1");
     expect(getStory).toHaveBeenCalledWith("123");
-    expect(addPrStatus).toHaveBeenCalledWith({ description: "Chores do not require Acceptance", state: "success", sha: "123", "context": "Clubhouse Acceptance", targetUrl: undefined });
+    expect(addPrStatus).toHaveBeenCalledWith({ description: "Chores do not require Acceptance", state: "success", sha: "123", "context": "Shortcut Acceptance", targetUrl: undefined });
   });
 });
