@@ -12,7 +12,7 @@ See the [docs on Github](https://docs.github.com/en/free-pro-team@latest/rest/re
 on:
   # Future functionality
   # repository_dispatch:
-  #   types: ["clubhouse-acceptance"]
+  #   types: ["shortcut-acceptance"]
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -31,7 +31,7 @@ In the future, it may also be run on a `repository dispatch`. In the case of a r
 
 ```
 {
-"event_type": "clubhouse-acceptance",
+"event_type": "shortcut-acceptance",
 "client_payload": {
         "story_id": 1234,
         "accepted": true
