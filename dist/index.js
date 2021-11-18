@@ -116,9 +116,8 @@ class Shortcut {
   }
 
   async getStory(storyID) {
-    const story = await this.client.getStory(storyID);
-
-    return story;
+    const story_response = await this.client.getStory(storyID);
+    return story_response.data;
   };
 
   storyHasLabel(story, labelText) {
