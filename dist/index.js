@@ -5,7 +5,7 @@
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const Github = __nccwpck_require__(2751);
-const Shortcut = __nccwpck_require__(5917);
+const Shortcut = (__nccwpck_require__(5917)/* ["default"] */ .Z);
 
 const CONTEXT = "Shortcut Acceptance"
 const DEFAULT_URL = "https://app.shortcut.com/rotabull/stories"
@@ -96,9 +96,8 @@ module.exports = class Github {
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
-__nccwpck_require__.r(__webpack_exports__);
 /* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Shortcut)
+/* harmony export */   "Z": () => (/* binding */ Shortcut)
 /* harmony export */ });
 /* harmony import */ var _useshortcut_client__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2951);
 /* harmony import */ var _useshortcut_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_useshortcut_client__WEBPACK_IMPORTED_MODULE_0__);
@@ -16427,17 +16426,6 @@ module.exports = JSON.parse('{"application/1d-interleaved-parityfec":{"source":"
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/compat */
