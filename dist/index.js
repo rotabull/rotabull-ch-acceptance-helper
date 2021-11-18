@@ -16457,7 +16457,7 @@ const CLUBHOUSE_TOKEN = core.getInput("clubhouse-token");
 
 async function run() {
   try {
-    await checkers.clubhouseAcceptance(github.context.payload.number, GITHUB_TOKEN, CLUBHOUSE_TOKEN);
+    await checkers.shortcutAcceptance(github.context.payload.number, GITHUB_TOKEN, CLUBHOUSE_TOKEN);
   } catch (error) {
     console.log(error.stack);
     core.setFailed(error.message);
